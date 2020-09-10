@@ -1,5 +1,10 @@
 import os
 import env
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib as plt
+
 def get_connection(db, user=env.user, host=env.host, password=env.password):
     return f'mysql+pymysql://{user}:{password}@{host}/{db}'
 
@@ -13,7 +18,7 @@ def get_titanic_data():
         df = pd.read_sql('SELECT * FROM passengers', get_connection('titanic_db'))
 
         # Write that dataframe to disk for later. Called "caching" the data for later.
-        df.to_csv(filename)
+        df.to_csv(filename, index=False)
 
         # Return the dataframe to the calling code
         return df 
@@ -31,7 +36,7 @@ def get_iris_data():
         get_connection('titanic_db'))
 
         # Write that dataframe to disk for later. Called "caching" the data for later.
-        df.to_csv(filename)
+        df.to_csv(filename, index=False)
 
         # Return the dataframe to the calling code
         return df 
