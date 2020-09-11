@@ -17,6 +17,8 @@ def prep_iris():
     iris.rename(columns={"species_name":"species" }, inplace = True)
     iris_dummies = pd.get_dummies(iris['species'])
     iris = pd.concat([iris, iris_dummies], axis=1)
+    iris['petal_area'] = iris['petal_length'] * iris['petal_width']
+    iris['sepal_area'] = iris['sepal_length'] * iris['sepal_width']
     return iris
 
 def prep_titanic():
