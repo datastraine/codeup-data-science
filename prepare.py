@@ -34,3 +34,14 @@ def prep_titanic():
     imputer = imputer.fit(titanic[['age']])
     titanic[['age']] = imputer.transform(titanic[['age']])
     return titanic
+
+def prep_titanic_exercise():
+    titanic = acquire.get_titanic_data()
+    titanic = titanic[~titanic.embark_town.isnull()]
+    titanic.drop(columns=['deck'])
+    titanic_dummies = pd.get_dummies(titanic['embarked'])
+    titanic = pd.concat([titanic, titanic_dummies], axis=1)
+    imputer = SimpleImputer(strategy = 'mean')
+    imputer = imputer.fit(titanic[['age']])
+    titanic['impute_age'] = imputer.transform(titanic[['age']])
+    return titanic
